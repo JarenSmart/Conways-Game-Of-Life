@@ -24,7 +24,6 @@ html {
 
 .grid {
   margin: 0;
-  padding-top: 3rem;
   padding-bottom: 1rem;
 }
 
@@ -36,6 +35,13 @@ html {
   padding: 1rem 2rem;
   border: 3px solid #fff;
   color: #fff;
+}
+
+h2 {
+  font-family: "Lato";
+  padding-top: 3rem;
+  margin: 0;
+  color: rgb(231, 229, 229);
 }
 
 .App-header {

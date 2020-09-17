@@ -2,9 +2,7 @@ import React, { useCallback, useState, useRef } from "react";
 import produce from "immer";
 import "./Game.css";
 
-const numRows = 25;
-const numCols = 25;
-
+// Array of movement operations that a cell can use
 const gameOps = [
   [0, 1],
   [0, -1],
@@ -16,30 +14,37 @@ const gameOps = [
   [-1, -1],
 ];
 
-const createNewGrid = () => {
-  const rows = [];
-  for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => 0));
-  }
-
-  return rows;
-};
-
 function Game() {
+  const numRows = 25;
+  const numCols = 25;
+  const [gen, setGen] = useState(0);
+  const [gameRunning, setGameRunning] = useState(false);
+
+  const createNewGrid = () => {
+    const rows = [];
+    for (let i = 0; i < numRows; i++) {
+      rows.push(Array.from(Array(numCols), () => 0));
+    }
+
+    return rows;
+  };
+
   const [grid, setGrid] = useState(() => {
     return createNewGrid();
   });
 
-  const [gameRunning, setGameRunning] = useState(false);
+  const genRef = useRef();
+  genRef.current = gen;
 
   const runSimRef = useRef(gameRunning);
   runSimRef.current = gameRunning;
 
+  // runs simulation of set grid (random or placed)
   const runSim = useCallback(() => {
     if (!runSimRef.current) {
       return;
     }
-
+    setGen((genRef.current += 1));
     setGrid((v) => {
       return produce(v, (gridCopy) => {
         for (let i = 0; i < numRows; i++) {
@@ -69,6 +74,7 @@ function Game() {
   return (
     <div className="Game-container">
       <h1 className="Game-title">Conway's Game of Life</h1>
+      <h2>Generation#: {gen}</h2>
       <div
         className="grid"
         style={{
@@ -113,6 +119,7 @@ function Game() {
         <button
           className="random-btn"
           onClick={() => {
+            setGen(0);
             const rows = [];
             for (let i = 0; i < numRows; i++) {
               rows.push(
@@ -128,6 +135,7 @@ function Game() {
         <button
           className="erase-btn"
           onClick={() => {
+            setGen(0);
             setGrid(createNewGrid());
           }}
         >
