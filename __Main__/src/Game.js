@@ -2,8 +2,8 @@ import React, { useCallback, useState, useRef } from "react";
 import produce from "immer";
 import "./Game.css";
 
-const numRows = 50;
-const numCols = 50;
+const numRows = 25;
+const numCols = 25;
 
 const gameOps = [
   [0, 1],
@@ -16,14 +16,18 @@ const gameOps = [
   [-1, -1],
 ];
 
+const createNewGrid = () => {
+  const rows = [];
+  for (let i = 0; i < numRows; i++) {
+    rows.push(Array.from(Array(numCols), () => 0));
+  }
+
+  return rows;
+};
+
 function Game() {
   const [grid, setGrid] = useState(() => {
-    const rows = [];
-    for (let i = 0; i < numRows; i++) {
-      rows.push(Array.from(Array(numCols), () => 0));
-    }
-
-    return rows;
+    return createNewGrid();
   });
 
   const [gameRunning, setGameRunning] = useState(false);
@@ -59,13 +63,14 @@ function Game() {
       });
     });
 
-    setTimeout(runSim, 1000); //100 ms
+    setTimeout(runSim, 500);
   }, []);
 
   return (
     <div className="Game-container">
       <h1 className="Game-title">Conway's Game of Life</h1>
       <div
+        className="Grid"
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${numCols}, 20px)`,
@@ -101,6 +106,27 @@ function Game() {
         }}
       >
         {gameRunning ? "stop" : "start"}
+      </button>
+      <button
+        onClick={() => {
+          const rows = [];
+          for (let i = 0; i < numRows; i++) {
+            rows.push(
+              Array.from(Array(numCols), () => (Math.random() > 0.5 ? 1 : 0))
+            );
+          }
+
+          setGrid(rows);
+        }}
+      >
+        Randomize
+      </button>
+      <button
+        onClick={() => {
+          setGrid(createNewGrid());
+        }}
+      >
+        Erase grid
       </button>
     </div>
   );

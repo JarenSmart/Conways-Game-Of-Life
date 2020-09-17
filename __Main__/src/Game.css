@@ -1,5 +1,15 @@
 .Game-container {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Grid {
+  margin: 0;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
 }
 
 .Game-title {
