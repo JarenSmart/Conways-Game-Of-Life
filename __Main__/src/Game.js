@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./App.css";
+import produce from "immer";
+import "./Game.css";
 
 const numRows = 25;
 const numCols = 25;
@@ -15,18 +16,30 @@ function Game() {
   });
 
   return (
-    <div className="App">
-      <h1>Conway's Game of Life</h1>
-      <div>
+    <div className="Game-container">
+      <h1 className="Game-title">Conway's Game of Life</h1>
+      <div
+        style={{
+          border: "solid 1px lime",
+          display: "grid",
+          gridTemplateColumns: `repeat(${numCols}, 20px)`,
+        }}
+      >
         {grid.map((rows, rowI) =>
           rows.map((col, colI) => (
             <div
               key={`${rowI}-${colI}`}
+              onClick={() => {
+                const newGrid = produce(grid, (gridCopy) => {
+                  gridCopy[rowI][colI] = grid[rowI][colI] ? 0 : 1;
+                });
+                setGrid(newGrid);
+              }}
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: grid[rowI][colI] ? "lime" : undefined,
-                border: "solid 1px black",
+                backgroundColor: grid[rowI][colI] ? "lime" : "black",
+                border: "solid 1px white",
               }}
             />
           ))

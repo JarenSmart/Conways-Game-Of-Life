@@ -1,5 +1,13 @@
-.App {
+.Game-container {
   text-align: center;
+}
+
+.Game-title {
+  letter-spacing: 1rem;
+  font-family: sans-serif;
+  font-weight: 400;
+  margin: auto;
+  padding-top: 20px;
 }
 
 .App-header {
