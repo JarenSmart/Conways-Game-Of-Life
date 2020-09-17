@@ -1,23 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Lato", Arial, sans-serif;
+}
+
 .Game-container {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(-45deg, #2f4353, #4778a0, #65606d, #59575c);
+  background-color: #2f4353;
+  background-size: 300% 300%;
+  position: relative;
+  height: 100vh;
+  animation: change 15s ease-in-out infinite;
 }
 
-.Grid {
+.grid {
   margin: 0;
   padding-top: 3rem;
   padding-bottom: 1rem;
 }
 
 .Game-title {
-  letter-spacing: 1rem;
-  font-family: sans-serif;
-  font-weight: 400;
-  margin: auto;
-  padding-top: 20px;
+  letter-spacing: 0.5rem;
+  font-size: 3rem;
+  font-family: "Lato";
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border: 3px solid #fff;
+  color: #fff;
 }
 
 .App-header {
@@ -29,4 +47,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+@keyframes change {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }

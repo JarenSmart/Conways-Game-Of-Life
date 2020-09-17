@@ -70,7 +70,7 @@ function Game() {
     <div className="Game-container">
       <h1 className="Game-title">Conway's Game of Life</h1>
       <div
-        className="Grid"
+        className="grid"
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${numCols}, 20px)`,
@@ -79,6 +79,7 @@ function Game() {
         {grid.map((rows, rowI) =>
           rows.map((col, colI) => (
             <div
+              className="per-square"
               key={`${rowI}-${colI}`}
               onClick={() => {
                 const newGrid = produce(grid, (gridCopy) => {
@@ -89,45 +90,50 @@ function Game() {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: grid[rowI][colI] ? "black" : undefined,
+                backgroundColor: grid[rowI][colI] ? "#204664" : "lightgray",
                 border: "solid 1px black",
               }}
             />
           ))
         )}
       </div>
-      <button
-        onClick={() => {
-          setGameRunning(!gameRunning);
-          if (!gameRunning) {
-            runSimRef.current = true;
-            runSim();
-          }
-        }}
-      >
-        {gameRunning ? "stop" : "start"}
-      </button>
-      <button
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numRows; i++) {
-            rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.5 ? 1 : 0))
-            );
-          }
+      <div className="buttons">
+        <button
+          className="start-btn"
+          onClick={() => {
+            setGameRunning(!gameRunning);
+            if (!gameRunning) {
+              runSimRef.current = true;
+              runSim();
+            }
+          }}
+        >
+          {gameRunning ? "Stop" : "Start"}
+        </button>
+        <button
+          className="random-btn"
+          onClick={() => {
+            const rows = [];
+            for (let i = 0; i < numRows; i++) {
+              rows.push(
+                Array.from(Array(numCols), () => (Math.random() > 0.5 ? 1 : 0))
+              );
+            }
 
-          setGrid(rows);
-        }}
-      >
-        Randomize
-      </button>
-      <button
-        onClick={() => {
-          setGrid(createNewGrid());
-        }}
-      >
-        Erase grid
-      </button>
+            setGrid(rows);
+          }}
+        >
+          Randomize
+        </button>
+        <button
+          className="erase-btn"
+          onClick={() => {
+            setGrid(createNewGrid());
+          }}
+        >
+          Erase grid
+        </button>
+      </div>
     </div>
   );
 }
