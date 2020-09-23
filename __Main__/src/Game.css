@@ -8,12 +8,8 @@ html {
   font-family: "Lato", Arial, sans-serif;
 }
 
-.Game-container {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+.container {
   align-items: center;
-  justify-content: center;
   background: linear-gradient(-45deg, #2f4353, #4778a0, #65606d, #59575c);
   background-color: #2f4353;
   background-size: 300% 300%;
@@ -22,12 +18,8 @@ html {
   animation: change 15s ease-in-out infinite;
 }
 
-.grid {
-  margin: 0;
-  padding-bottom: 1rem;
-}
-
-.Game-title {
+.game-title {
+  text-align: center;
   letter-spacing: 0.5rem;
   font-size: 3rem;
   font-family: "Lato";
@@ -35,6 +27,32 @@ html {
   padding: 1rem 2rem;
   border: 3px solid #fff;
   color: #fff;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  /*add media here*/
+}
+
+.game-container {
+  width: 48%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  margin: 0;
+  box-shadow: 5px 10px 15px #282c34;
+}
+
+.rules-container {
+  width: 48%;
 }
 
 h2 {
@@ -55,13 +73,44 @@ h2 {
   color: white;
 }
 
+h3 {
+  text-transform: uppercase;
+  color: #fff;
+}
+
+li {
+  color: #fff;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 5px;
+  margin: 0 4px;
+  background-color: lightgrey;
+  outline: none;
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+.btn:hover {
+  background-color: #204664;
+  color: #fff;
+}
+
 @keyframes change {
   0% {
     background-position: 0 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0 50%;
   }

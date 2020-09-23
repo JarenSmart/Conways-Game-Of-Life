@@ -72,75 +72,98 @@ function Game() {
   }, []);
 
   return (
-    <div className="Game-container">
-      <h1 className="Game-title">Conway's Game of Life</h1>
-      <h2>Generation#: {gen}</h2>
-      <div
-        className="grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${numCols}, 20px)`,
-        }}
-      >
-        {grid.map((rows, rowI) =>
-          rows.map((col, colI) => (
+    <div className="container">
+      <h1 className="game-title">Conway's Game of Life</h1>
+      <div className="main-container">
+        <div className="game-container">
+          <h2>Generation#: {gen}</h2>
+          <div className="grid-box">
             <div
-              className="per-square"
-              key={`${rowI}-${colI}`}
-              onClick={() => {
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[rowI][colI] = grid[rowI][colI] ? 0 : 1;
-                });
-                setGrid(newGrid);
-              }}
+              className="grid"
               style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[rowI][colI] ? "#204664" : "lightgray",
-                border: "solid 1px black",
+                display: "grid",
+                gridTemplateColumns: `repeat(${numCols}, 20px)`,
               }}
-            />
-          ))
-        )}
-      </div>
-      <div className="buttons">
-        <button
-          className="start-btn"
-          onClick={() => {
-            setGameRunning(!gameRunning);
-            if (!gameRunning) {
-              runSimRef.current = true;
-              runSim();
-            }
-          }}
-        >
-          {gameRunning ? "Stop" : "Start"}
-        </button>
-        <button
-          className="random-btn"
-          onClick={() => {
-            setGen(0);
-            const rows = [];
-            for (let i = 0; i < numRows; i++) {
-              rows.push(
-                Array.from(Array(numCols), () => (Math.random() > 0.5 ? 1 : 0))
-              );
-            }
+            >
+              {grid.map((rows, rowI) =>
+                rows.map((col, colI) => (
+                  <div
+                    className="per-square"
+                    key={`${rowI}-${colI}`}
+                    onClick={() => {
+                      const newGrid = produce(grid, (gridCopy) => {
+                        gridCopy[rowI][colI] = grid[rowI][colI] ? 0 : 1;
+                      });
+                      setGrid(newGrid);
+                    }}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      backgroundColor: grid[rowI][colI]
+                        ? "#204664"
+                        : "lightgray",
+                      border: "solid 1px black",
+                    }}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          <div className="buttons-container">
+            <button
+              className="btn"
+              onClick={() => {
+                setGameRunning(!gameRunning);
+                if (!gameRunning) {
+                  runSimRef.current = true;
+                  runSim();
+                }
+              }}
+            >
+              {gameRunning ? "Stop" : "Start"}
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                setGen(0);
+                const rows = [];
+                for (let i = 0; i < numRows; i++) {
+                  rows.push(
+                    Array.from(Array(numCols), () =>
+                      Math.random() > 0.5 ? 1 : 0
+                    )
+                  );
+                }
 
-            setGrid(rows);
-          }}
-        >
-          Randomize
-        </button>
-        <button
-          className="erase-btn"
-          onClick={() => {
-            setGen(0);
-            setGrid(createNewGrid());
-          }}
-        >
-          Erase grid
-        </button>
+                setGrid(rows);
+              }}
+            >
+              Randomize
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                setGen(0);
+                setGrid(createNewGrid());
+              }}
+            >
+              Erase grid
+            </button>
+          </div>
+        </div>
+        <div className="rules-container">
+          <h3 className="rules-header">Rules:</h3>
+          <ul>
+            <li>
+              If the cell is alive **and** has 2 or 3 neighbors, then it remains
+              alive. Else it dies.
+            </li>
+            <li>
+              If the cell is dead **and** has exactly 3 neighbors, then it comes
+              to life. Else if remains dead.
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
