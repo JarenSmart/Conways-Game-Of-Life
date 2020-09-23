@@ -19,6 +19,7 @@ function Game() {
   const numCols = 25;
   const [gen, setGen] = useState(0);
   const [gameRunning, setGameRunning] = useState(false);
+  const [speed, setSpeed] = useState(500);
 
   const createNewGrid = () => {
     const rows = [];
@@ -68,15 +69,15 @@ function Game() {
       });
     });
 
-    setTimeout(runSim, 500);
-  }, []);
+    setTimeout(runSim, speed);
+  }, [speed]);
 
   return (
     <div className="container">
       <h1 className="game-title">Conway's Game of Life</h1>
       <div className="main-container">
         <div className="game-container">
-          <h2>Generation#: {gen}</h2>
+          <h2>Generation: {gen}</h2>
           <div className="grid-box">
             <div
               className="grid"
@@ -149,6 +150,23 @@ function Game() {
             >
               Erase grid
             </button>
+            <select
+              className="dropdown"
+              onChange={(e) => {
+                e.preventDefault();
+                setSpeed(e.target.value);
+              }}
+            >
+              <option>select a speed</option>
+              <option>2000</option>
+              <option>1500</option>
+              <option>1000</option>
+              <option>750</option>
+              <option>600</option>
+              <option>350</option>
+              <option>100</option>
+              <option>10</option>
+            </select>
           </div>
         </div>
         <div className="rules-container">
